@@ -1,7 +1,7 @@
 #include "player.h"
 
-Player::Player(sf::RenderWindow &window_, float vsize_, float spacing_, int id_, Stage &stage_, int score_) : window{window_}, 
-	vsize{ vsize_ }, spacing{ spacing_ }, id{ id_ }, stage{stage_}
+Player::Player(sf::RenderWindow &window_, float vsize_, float spacing_, int id_, Stage &stage_, Irctwitch &irc_, int score_) : window{window_}, 
+	vsize{ vsize_ }, spacing{ spacing_ }, id{ id_ }, stage{stage_}, irc {irc_}
 {
 	sf::Vector2u windowSize = window.getSize();
 	rectangle = sf::RectangleShape(sf::Vector2f(hsize * windowSize.x, vsize * windowSize.y));
