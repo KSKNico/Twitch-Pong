@@ -42,7 +42,13 @@ void Irctwitch::run() {
 			}
 			token += std::string(read.substr(0, pos));
 			
-			lines.push(token);
+			if (token == "PING :tmi.twitch.tv") {
+				socket.send("PONG :tmi.twitch.tv", 20);
+			}
+			std::tuple<std::string, std::string> tuple = slice(token);
+			if (std::get<0>(tuple) != "") {
+				lines.push(tuple);
+			}
 			read = read.substr(pos+2, read.length()-1);
 			token = "";
 		}
@@ -60,4 +66,23 @@ void Irctwitch::authenticate() {
 	socket.send(channel.c_str(), channel.length());
 
 	// socket.send("PRIVMSG #ksk_nico :HEYO\r\n", 25);
+}
+
+std::tuple<std::string, std::string> Irctwitch::slice(std::string s) {
+	
+	std::string temp = s.substr(1, s.size());
+	int index = temp.find(":");
+	std::string first = temp.substr(0, index-1);
+	std::string message = temp.substr(index+1, temp.size());
+	
+	if (first.find("PRIVMSG") != -1) {
+		index = first.find(" ");
+		first = first.substr(index+1, first.size());
+		index = first.find(" ");
+		first = first.substr(index+2, first.size());
+		return std::make_tuple(first, message);
+	}
+	else {
+		return std::make_tuple("", "");
+	}
 }
