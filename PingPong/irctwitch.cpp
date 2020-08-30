@@ -1,4 +1,5 @@
 #include "irctwitch.h"
+#include <cstring>
 
 Irctwitch::Irctwitch(std::string oauth, std::string nickname) {
 	sf::IpAddress ip("irc.chat.twitch.tv");
@@ -22,7 +23,7 @@ void Irctwitch::run() {
 	std::string token("");
 	authenticate();
 	while (true) {
-		memset(&data[0], 0, sizeof(data));
+		std::memset(&data[0], 0, sizeof(data));
 		socket.receive(data, 1024, received);
 
 		int pos = 0;
