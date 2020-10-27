@@ -15,8 +15,8 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Ping Pong", sf::Style::Close);
     window.setFramerateLimit(60);
     Stage stage(window, 0.05f);
-    Player player1(window, 0.2f, 0.05f, 0, stage, irc);
-    Player player2(window, 0.2f, 0.05f, 1, stage, irc);
+    Player player1(window, 0.2f, 0.05f, PlayerID::Zero, stage, irc);
+    Player player2(window, 0.2f, 0.05f, PlayerID::One, stage, irc);
     Ball ball(window, 20.f, sf::Vector2f(-5.f, -5.f), stage, player1, player2);
 
     while (window.isOpen()) {

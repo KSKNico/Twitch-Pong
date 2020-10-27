@@ -1,15 +1,15 @@
 #include "player.h"
 
-Player::Player(sf::RenderWindow &window_, float vsize_, float spacing_, int id_, Stage &stage_, Irctwitch &irc_,
+Player::Player(sf::RenderWindow &window_, float vsize_, float spacing_, PlayerID id_, Stage &stage_, Irctwitch &irc_,
                int score_)
     : window{window_}, vsize{vsize_}, spacing{spacing_}, id{id_}, stage{stage_}, irc{irc_} {
     sf::Vector2u windowSize = window.getSize();
     rectangle = sf::RectangleShape(sf::Vector2f(hsize * windowSize.x, vsize * windowSize.y));
     rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
-    if (id == 0) {
+    if (id == PlayerID::Zero) {
         rectangle.setPosition(windowSize.x * spacing, windowSize.y / 2);
         rectangle.setFillColor(sf::Color::Blue);
-    } else if (id == 1) {
+    } else if (id == PlayerID::One) {
         rectangle.setPosition(windowSize.x - windowSize.x * spacing, windowSize.y / 2);
         rectangle.setFillColor(sf::Color::Red);
     }
@@ -29,13 +29,13 @@ bool Player::checkCollision() {
 }
 
 void Player::draw() {
-    if (id == 0) {
+    if (id == PlayerID::Zero) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             rectangle.move(0.f, -3.f);
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             rectangle.move(0.f, 3.f);
         }
-    } else if (id == 1) {
+    } else if (id == PlayerID::One) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             rectangle.move(0.f, -3.f);
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
