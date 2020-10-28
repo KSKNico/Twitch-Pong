@@ -9,7 +9,8 @@
 #include <iostream>
 
 int main() {
-    Irctwitch irc("arxl5i3cidzus6w6cxp20dltk3mmt0", "ksk_nico");
+    // input oauth token and username here
+    Irctwitch irc("", "");
 
     // Needs to be added: sf::Style::Fullscreen
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Ping Pong", sf::Style::Close);
