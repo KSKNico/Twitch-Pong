@@ -28,18 +28,30 @@ bool Player::checkCollision() {
     return false;
 }
 
+/* TODO: the unordered set "users" still needs to be configured, there should be
+a voting phase before the game starts (e.g. a command !team in twitch chat to 
+set your team)
+*/ 
+
 void Player::draw() {
+    if (this->irc.lines.empty())
+        return;
+    std::tuple<std::string, std::string> command = this->irc.lines.front();
+    this->irc.lines.pop();
+    if (users.find(std::get<0>(command)) == users.end())
+        return;
+    
     if (id == PlayerID::Zero) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            rectangle.move(0.f, -3.f);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            rectangle.move(0.f, 3.f);
+        if (std::get<1>(command) == "up") {
+            rectangle.move(0.f, -6.f);
+        } else if (std::get<1>(command) == "down") {
+            rectangle.move(0.f, 6.f);
         }
     } else if (id == PlayerID::One) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            rectangle.move(0.f, -3.f);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            rectangle.move(0.f, 3.f);
+        if (std::get<1>(command) == "up") {
+            rectangle.move(0.f, -6.f);
+        } else if (std::get<1>(command) == "down") {
+            rectangle.move(0.f, 6.f);
         }
     }
     checkCollision();
